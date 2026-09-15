@@ -1,0 +1,34 @@
+{
+	admin off
+	auto_https off
+	servers {
+		trusted_proxies static private_ranges
+	}
+}
+
+:{$PORT:8080} {
+	# frutvibes.com (sem www) -> www.frutvibes.com
+	@semwww host frutvibes.com
+	redir @semwww https://www.frutvibes.com{uri} permanent
+
+	root * /srv
+	encode zstd gzip
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	header /assets/* Cache-Control "public, max-age=2592000"
+	header /favicon.ico Cache-Control "public, max-age=2592000"
+
+	file_server
+
+	handle_errors {
+		@404 expression {err.status_code} == 404
+		handle @404 {
+			rewrite * /404.html
+			file_server
+		}
+	}
+}
