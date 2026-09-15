@@ -38,38 +38,33 @@ Se trocar as imagens de origem (conceito ou logos), rode antes `python tools/ger
 
 Para ver no computador: `python -m http.server 8080 --directory public` e abra http://localhost:8080.
 
-## Publicar (GitHub Pages + domínio GoDaddy)
+## Publicar (Railway + domínio GoDaddy)
 
-O site é publicado automaticamente em **https://www.frutvibes.com**. A cada `git push` na branch `main`, o GitHub Actions (`.github/workflows/publicar-site.yml`) roda `node build.mjs` e publica a pasta `public/` no GitHub Pages. Dá para acompanhar na aba **Actions** do repositório.
+O site roda no **Railway**: projeto `frutvibes`, serviço `frutvibes-site`, ligado a este repositório do GitHub. A cada `git push` na branch `main`, o Railway usa o `Dockerfile`: roda `node build.mjs` e serve a pasta `public/` com o Caddy (configurado no `Caddyfile`). O Caddy também redireciona para o `www`, aplica cache nas imagens e mostra a página 404.
 
-### Configuração única no GitHub
-
-1. Repositório → **Settings → Pages** → em *Build and deployment*, *Source*: **GitHub Actions**.
-2. Aba **Actions** → workflow **Publicar site** → **Run workflow** (ou faça qualquer push).
-3. Volte em **Settings → Pages** → *Custom domain*: `www.frutvibes.com` → **Save**.
-4. Depois que o DNS propagar e o certificado sair (até 24 h), marque **Enforce HTTPS**.
-
-Recomendado: em **github.com/settings/pages** (configurações da sua conta), clique em *Add a domain* e verifique `frutvibes.com` com o registro TXT que o GitHub mostrar. Isso impede que outra conta use o seu domínio.
+- Painel: https://railway.com/project/e4c38aa5-69b9-46aa-bdc0-e7d90e09584f
+- Endereço definitivo: **https://www.frutvibes.com**
+- O serviço escuta na porta `8080` (variável `PORT=8080` no Railway).
 
 ### DNS na GoDaddy
 
-GoDaddy → **Meus produtos → frutvibes.com → DNS**. Apague os registros `A` com nome `@` e o `CNAME` com nome `www` que já existirem (normalmente apontam para a página de estacionamento da GoDaddy, "Parked") e crie:
+GoDaddy → **Meus produtos → frutvibes.com → DNS**.
 
-| Tipo | Nome | Valor |
-| --- | --- | --- |
-| A | @ | 185.199.108.153 |
-| A | @ | 185.199.109.153 |
-| A | @ | 185.199.110.153 |
-| A | @ | 185.199.111.153 |
-| AAAA | @ | 2606:50c0:8000::153 |
-| AAAA | @ | 2606:50c0:8001::153 |
-| AAAA | @ | 2606:50c0:8002::153 |
-| AAAA | @ | 2606:50c0:8003::153 |
-| CNAME | www | gisellecouto.github.io |
+**1. `www` apontando para o Railway**
 
-Não mexa nos registros `NS`, `SOA` nem nos de e-mail (`MX`, `TXT`), se houver. Com isso, `frutvibes.com` redireciona para `www.frutvibes.com`.
+| Tipo | Nome | Valor | Ação |
+| --- | --- | --- | --- |
+| CNAME | www | `jrlirgsm.up.railway.app` | editar o CNAME `www` que já existe |
+| TXT | `_railway-verify.www` | `railway-verify=9e847a23227513d076499fe940ad4eecf6cf2c09a3b09af5712951e8ef3c51bc` | adicionar |
 
-> O site usa caminhos a partir da raiz (`/assets/...`), então ele só aparece corretamente no domínio próprio, não no endereço `gisellecouto.github.io/frutvibes`.
+**2. `frutvibes.com` (sem www) redirecionando para o www**
+
+A GoDaddy não aceita CNAME na raiz do domínio, então use o encaminhamento:
+GoDaddy → frutvibes.com → **Encaminhamento (Forwarding)** → *Domínio* → destino `https://www.frutvibes.com`, tipo **Permanente (301)**, sem mascaramento. A GoDaddy troca sozinha o registro `A` "WebsiteBuilder Site" pelo do encaminhamento. Se ela pedir para desconectar o Criador de Sites, confirme.
+
+**Não mexa** em `NS`, `SOA`, `MX`, `SRV`, nos `TXT` de SPF/DMARC nem nos `CNAME` `email`, `secureserver1._domainkey`, `secureserver2._domainkey` e `_domainconnect`. Eles mantêm o e-mail @frutvibes.com funcionando.
+
+O certificado HTTPS é emitido pelo Railway assim que o DNS propagar (de minutos até algumas horas). Para acompanhar: `railway domain list`.
 
 ## Colocar no Google (passo a passo)
 
