@@ -11,7 +11,7 @@ const OUT = join(ROOT, 'public');
 // CONFIGURAÇÃO — preencha antes de publicar
 // ---------------------------------------------------------------------------
 const SITE = {
-  url: 'https://www.frutvibes.com.br', // domínio definitivo, sem barra no final
+  url: 'https://www.frutvibes.com', // domínio definitivo, sem barra no final
   nome: 'FrutVibes',
   slogan: 'Drinks gaseificados',
   empresa: 'Gama Rei do Chopp', // quem produz (aparece no rodapé e nos dados estruturados)
@@ -811,4 +811,3 @@ writeFileSync(
 console.log(`✔ ${paginas.length} páginas geradas em public/ (${indexaveis.length} no sitemap)`);
 const faltando = ['email', 'whatsapp', 'instagram', 'cidade'].filter((k) => !SITE[k]);
 if (faltando.length) console.warn(`⚠ Preencha em SITE (build.mjs): ${faltando.join(', ')}`);
-if (SITE.url.includes('frutvibes.com.br')) console.warn(`⚠ Confirme o domínio definitivo em SITE.url (atual: ${SITE.url})`);

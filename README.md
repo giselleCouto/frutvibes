@@ -38,15 +38,38 @@ Se trocar as imagens de origem (conceito ou logos), rode antes `python tools/ger
 
 Para ver no computador: `python -m http.server 8080 --directory public` e abra http://localhost:8080.
 
-## Publicar
+## Publicar (GitHub Pages + domínio GoDaddy)
 
-Qualquer hospedagem de site estático serve. Opções gratuitas e simples:
+O site é publicado automaticamente em **https://www.frutvibes.com**. A cada `git push` na branch `main`, o GitHub Actions (`.github/workflows/publicar-site.yml`) roda `node build.mjs` e publica a pasta `public/` no GitHub Pages. Dá para acompanhar na aba **Actions** do repositório.
 
-- **Netlify** (netlify.com): arraste a pasta `public` para "Deploy manually".
-- **Cloudflare Pages** ou **Vercel**: crie um projeto e envie a pasta `public`.
-- **Hospedagem com cPanel** (Hostinger, Locaweb etc.): envie o conteúdo de `public` para a pasta `public_html`.
+### Configuração única no GitHub
 
-Depois conecte o domínio (registre o `.com.br` em registro.br) e ative HTTPS (as opções acima fazem isso automaticamente).
+1. Repositório → **Settings → Pages** → em *Build and deployment*, *Source*: **GitHub Actions**.
+2. Aba **Actions** → workflow **Publicar site** → **Run workflow** (ou faça qualquer push).
+3. Volte em **Settings → Pages** → *Custom domain*: `www.frutvibes.com` → **Save**.
+4. Depois que o DNS propagar e o certificado sair (até 24 h), marque **Enforce HTTPS**.
+
+Recomendado: em **github.com/settings/pages** (configurações da sua conta), clique em *Add a domain* e verifique `frutvibes.com` com o registro TXT que o GitHub mostrar. Isso impede que outra conta use o seu domínio.
+
+### DNS na GoDaddy
+
+GoDaddy → **Meus produtos → frutvibes.com → DNS**. Apague os registros `A` com nome `@` e o `CNAME` com nome `www` que já existirem (normalmente apontam para a página de estacionamento da GoDaddy, "Parked") e crie:
+
+| Tipo | Nome | Valor |
+| --- | --- | --- |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| AAAA | @ | 2606:50c0:8000::153 |
+| AAAA | @ | 2606:50c0:8001::153 |
+| AAAA | @ | 2606:50c0:8002::153 |
+| AAAA | @ | 2606:50c0:8003::153 |
+| CNAME | www | gisellecouto.github.io |
+
+Não mexa nos registros `NS`, `SOA` nem nos de e-mail (`MX`, `TXT`), se houver. Com isso, `frutvibes.com` redireciona para `www.frutvibes.com`.
+
+> O site usa caminhos a partir da raiz (`/assets/...`), então ele só aparece corretamente no domínio próprio, não no endereço `gisellecouto.github.io/frutvibes`.
 
 ## Colocar no Google (passo a passo)
 
