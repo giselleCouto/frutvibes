@@ -1,0 +1,15 @@
+# Site gerado (rode `node build.mjs` para recriar)
+public/
+
+# Configuração local do Claude Code
+.claude/
+
+# Documentos internos da empresa
+passo_a_passo_fabrica.pdf
+
+# Python / sistema
+__pycache__/
+*.pyc
+Thumbs.db
+desktop.ini
+.DS_Store
