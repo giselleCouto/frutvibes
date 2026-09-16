@@ -15,7 +15,7 @@ const SITE = {
   nome: 'FrutVibes',
   slogan: 'Drinks gaseificados',
   empresa: 'Gama Rei do Chopp', // quem produz (aparece no rodapé e nos dados estruturados)
-  email: '', // ex.: contato@frutvibes.com
+  email: 'comercial@frutvibes.com',
   whatsapp: '', // só números, com 55 + DDD. ex.: 5531999999999
   instagram: '', // usuário sem @. ex.: frutvibes
   cidade: '', // ex.: Belo Horizonte
