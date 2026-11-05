@@ -67,7 +67,8 @@ const trocarCodigoPorToken = async (code, redirect_uri) => {
 
 createServer(async (req, res) => {
   const url = new URL(req.url, baseDe(req));
-  const redirect_uri = `${baseDe(req)}/callback?provider=github`;
+  // Sem parâmetros extras: o GitHub exige que seja idêntico ao endereço cadastrado no app
+  const redirect_uri = `${baseDe(req)}/callback`;
 
   if (url.pathname === '/saude') {
     res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' });
