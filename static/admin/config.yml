@@ -4,7 +4,7 @@ backend:
   name: github
   repo: giselleCouto/frutvibes
   branch: main
-  base_url: https://AUTH_DOMINIO
+  base_url: https://frutvibes-auth-production.up.railway.app
   auth_endpoint: auth
   commit_messages:
     create: 'Painel: cria {{collection}} “{{slug}}”'
