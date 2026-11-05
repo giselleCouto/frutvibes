@@ -5,8 +5,10 @@ Site estático e otimizado para o Google da FrutVibes, drinks gaseificados à ba
 ## Estrutura
 
 ```
-build.mjs              -> gerador do site: textos, sabores, FAQ e CONFIGURAÇÃO (domínio, WhatsApp, etc.)
-static/                -> arquivos copiados como estão (CSS, JS, imagens, favicon)
+build.mjs              -> gerador do site (monta o HTML a partir de conteudo/)
+conteudo/              -> TEXTOS DO SITE em JSON, editáveis pelo painel /admin
+auth/                  -> serviço de login do painel (OAuth do GitHub)
+static/                -> arquivos copiados como estão (CSS, JS, imagens, favicon, painel /admin)
 tools/gerar_imagens.py -> recorta latas/barril do conceito visual e gera logos, favicon e imagens de compartilhamento
 marca/                 -> logos originais
 public/                -> SITE PRONTO (é esta pasta que vai para a hospedagem)
@@ -23,6 +25,32 @@ Páginas geradas:
 | `/sobre/` · `/perguntas-frequentes/` · `/contato/` · `/privacidade/` | Institucionais |
 
 Também são gerados `sitemap.xml`, `robots.txt`, `site.webmanifest` e `404.html`.
+
+## Painel de edição (/admin)
+
+O site tem um painel em **https://www.frutvibes.com/admin/** para editar o conteúdo sem mexer em código. Ele grava os arquivos de `conteudo/` no GitHub e o Railway republica o site sozinho, em cerca de 3 minutos.
+
+Dá para editar: os sabores (inclusive criar e apagar), a página inicial, as ocasiões da página de barril, as perguntas frequentes e os dados de contato da marca. As imagens enviadas pelo painel vão para `static/assets/img`.
+
+Quem edita precisa ter uma conta no GitHub com acesso de escrita a este repositório.
+
+### Configuração única do login
+
+1. No GitHub, crie um OAuth App em **Settings → Developer settings → OAuth Apps → New OAuth App** (https://github.com/settings/developers):
+   - *Application name*: `Painel FrutVibes`
+   - *Homepage URL*: `https://www.frutvibes.com`
+   - *Authorization callback URL*: `https://frutvibes-auth-production.up.railway.app/callback`
+2. Gere um *client secret* na página do app.
+3. No Railway, serviço **frutvibes-auth** → aba **Variables**, adicione:
+   - `GITHUB_CLIENT_ID` = o Client ID do app
+   - `GITHUB_CLIENT_SECRET` = o secret gerado
+4. Confira em https://frutvibes-auth-production.up.railway.app/saude — deve responder `ok`.
+
+O segredo fica só no Railway; ele nunca entra no repositório.
+
+### Como o login funciona
+
+O serviço `frutvibes-auth` (código em `auth/server.mjs`, imagem `Dockerfile.auth`) é a ponte entre o painel e o GitHub: `/auth` leva ao GitHub e `/callback` devolve o acesso ao painel. Se o repositório virar privado, troque a variável `GITHUB_SCOPE` para `repo,user`.
 
 ## Como editar e gerar
 
