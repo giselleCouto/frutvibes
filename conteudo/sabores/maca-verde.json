@@ -1,0 +1,21 @@
+{
+  "ordem": 1,
+  "nome": "Maçã Verde",
+  "base": "Vodka + fruta",
+  "cor": "#3F9A2B",
+  "texto": "#FFF9E8",
+  "titulo": "FrutVibes Maçã Verde: drink de vodka gaseificado",
+  "meta": "Conheça o FrutVibes Maçã Verde: drink gaseificado à base de vodka com sabor de maçã verde, refrescante e servido gelado direto do barril.",
+  "resumo": "Azedinho na medida, aromático e muito refrescante.",
+  "paragrafos": [
+    "O FrutVibes Maçã Verde junta a base neutra da vodka ao sabor vibrante da maçã verde, com gás fino que deixa cada gole leve e refrescante.",
+    "É o sabor para quem gosta de drink cítrico sem ser ácido demais: vai bem no calor, no happy hour e em qualquer festa em que a fila do bar precisa andar rápido."
+  ],
+  "perfil": [
+    "Aroma fresco de maçã verde",
+    "Equilíbrio entre doce e azedinho",
+    "Gás fino e final limpo"
+  ],
+  "combina": "Petiscos, frituras, frutos do mar e fim de tarde ao ar livre.",
+  "imagem": "/assets/img/lata-maca-verde.webp"
+}

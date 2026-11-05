@@ -2,6 +2,7 @@
 FROM node:22-alpine AS build
 WORKDIR /app
 COPY build.mjs ./
+COPY conteudo ./conteudo
 COPY static ./static
 RUN node build.mjs
 

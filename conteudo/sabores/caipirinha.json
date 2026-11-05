@@ -1,0 +1,21 @@
+{
+  "ordem": 5,
+  "nome": "Caipirinha",
+  "base": "Caipirinha gaseificada",
+  "cor": "#135C4D",
+  "texto": "#FFF9E8",
+  "titulo": "Caipirinha gaseificada em barril | FrutVibes",
+  "meta": "Caipirinha FrutVibes: a caipirinha brasileira em versão gaseificada, pronta e gelada, servida direto do barril em bares, festas e eventos.",
+  "resumo": "O clássico brasileiro, pronto, gelado e com gás.",
+  "paragrafos": [
+    "A caipirinha é o drink mais brasileiro que existe, e na FrutVibes ela ganhou uma versão gaseificada, padronizada e pronta para servir direto do barril.",
+    "Sem cortar limão, sem macerar e sem fila: o mesmo sabor em todo copo, do primeiro ao último convidado."
+  ],
+  "perfil": [
+    "Limão em destaque",
+    "Doce e ácido equilibrados",
+    "Gás que deixa o clássico mais leve"
+  ],
+  "combina": "Feijoada, churrasco, festa junina, carnaval e roda de samba.",
+  "imagem": "/assets/img/lata-caipirinha.webp"
+}

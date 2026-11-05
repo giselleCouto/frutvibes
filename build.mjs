@@ -1,6 +1,6 @@
 // Gerador do site FrutVibes (HTML estático, sem dependências).
 // Uso: node build.mjs  ->  gera a pasta public/ pronta para publicar.
-import { cpSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -8,114 +8,39 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 const OUT = join(ROOT, 'public');
 
 // ---------------------------------------------------------------------------
-// CONFIGURAÇÃO — preencha antes de publicar
+// CONTEÚDO — editado pelo painel em /admin/ (arquivos na pasta conteudo/)
 // ---------------------------------------------------------------------------
-const SITE = {
-  url: 'https://www.frutvibes.com', // domínio definitivo, sem barra no final
-  nome: 'FrutVibes',
-  slogan: 'Drinks gaseificados',
-  empresa: 'Gama Rei do Chopp', // quem produz (aparece no rodapé e nos dados estruturados)
-  email: 'comercial@frutvibes.com',
-  whatsapp: '', // só números, com 55 + DDD. ex.: 5531999999999
-  instagram: '', // usuário sem @. ex.: frutvibes
-  cidade: '', // ex.: Belo Horizonte
-  estado: '', // ex.: MG
-  googleSiteVerification: '', // código da meta tag do Google Search Console (opcional se verificar por DNS)
+const CONTEUDO = join(ROOT, 'conteudo');
+const ler = (...p) => JSON.parse(readFileSync(join(CONTEUDO, ...p), 'utf8'));
+
+// Texto claro ou escuro sobre a cor do sabor (evita um campo a mais no painel)
+const claro = (hex) => {
+  const [r, g, b] = (hex || '#FFFFFF').replace('#', '').match(/../g).map((h) => parseInt(h, 16) / 255);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.5;
 };
 
 const HOJE = new Date().toISOString().slice(0, 10);
 const VERSAO = Date.now().toString(36);
 
-const SABORES = [
-  {
-    slug: 'maca-verde',
-    nome: 'Maçã Verde',
-    base: 'Vodka + fruta',
-    cor: '#3F9A2B', texto: '#FFF9E8', escuro: false,
-    titulo: 'FrutVibes Maçã Verde: drink de vodka gaseificado',
-    meta: 'Conheça o FrutVibes Maçã Verde: drink gaseificado à base de vodka com sabor de maçã verde, refrescante e servido gelado direto do barril.',
-    resumo: 'Azedinho na medida, aromático e muito refrescante.',
-    paragrafos: [
-      'O FrutVibes Maçã Verde junta a base neutra da vodka ao sabor vibrante da maçã verde, com gás fino que deixa cada gole leve e refrescante.',
-      'É o sabor para quem gosta de drink cítrico sem ser ácido demais: vai bem no calor, no happy hour e em qualquer festa em que a fila do bar precisa andar rápido.',
-    ],
-    perfil: ['Aroma fresco de maçã verde', 'Equilíbrio entre doce e azedinho', 'Gás fino e final limpo'],
-    combina: 'Petiscos, frituras, frutos do mar e fim de tarde ao ar livre.',
-  },
-  {
-    slug: 'limao',
-    nome: 'Limão',
-    base: 'Vodka + fruta',
-    cor: '#B4D236', texto: '#10231F', escuro: true,
-    titulo: 'FrutVibes Limão: drink de vodka com limão gaseificado',
-    meta: 'FrutVibes Limão é o drink gaseificado de vodka com limão: cítrico, leve e refrescante, servido gelado direto do barril em bares, festas e eventos.',
-    resumo: 'Cítrico, leve e daquele jeito que todo mundo gosta.',
-    paragrafos: [
-      'Clássico brasileiro não tem erro: o FrutVibes Limão traz a acidez e o perfume do limão com base de vodka e gás na medida certa.',
-      'É o sabor coringa do barril: agrada a quase todo mundo e acompanha do churrasco à balada.',
-    ],
-    perfil: ['Perfume cítrico de limão', 'Acidez refrescante', 'Leve, gelado e fácil de beber'],
-    combina: 'Churrasco, comida de boteco, feijoada e dias quentes.',
-  },
-  {
-    slug: 'abacaxi',
-    nome: 'Abacaxi',
-    base: 'Vodka + fruta',
-    cor: '#F2C31C', texto: '#10231F', escuro: true,
-    titulo: 'FrutVibes Abacaxi: drink de vodka com abacaxi gaseificado',
-    meta: 'FrutVibes Abacaxi: drink gaseificado à base de vodka com sabor tropical de abacaxi, docinho e refrescante, servido gelado direto do barril.',
-    resumo: 'Tropical, docinho e com cara de verão.',
-    paragrafos: [
-      'O FrutVibes Abacaxi é puro clima de praia: o sabor doce e tropical do abacaxi encontra a vodka e ganha borbulhas que deixam tudo mais leve.',
-      'Perfeito para festas ao ar livre, pool party, luau e para quem prefere um drink mais frutado.',
-    ],
-    perfil: ['Sabor tropical de abacaxi', 'Doçura equilibrada', 'Refrescância de verão'],
-    combina: 'Churrasco, comida agridoce, petiscos salgados e festas na piscina.',
-  },
-  {
-    slug: 'frutas-vermelhas',
-    nome: 'Frutas Vermelhas',
-    base: 'Vodka + fruta',
-    cor: '#C4174E', texto: '#FFF9E8', escuro: false,
-    titulo: 'FrutVibes Frutas Vermelhas: drink de vodka gaseificado',
-    meta: 'FrutVibes Frutas Vermelhas: drink gaseificado de vodka com sabor intenso de frutas vermelhas, cor vibrante e servido gelado direto do barril.',
-    resumo: 'Intenso, frutado e com a cor mais bonita da festa.',
-    paragrafos: [
-      'O FrutVibes Frutas Vermelhas tem sabor marcante e frutado, com a base de vodka e o gás fino que são a assinatura da marca.',
-      'Chama atenção no copo e nas fotos: é o queridinho de aniversários, formaturas, casamentos e baladas.',
-    ],
-    perfil: ['Sabor intenso de frutas vermelhas', 'Cor vibrante no copo', 'Doce na medida, final refrescante'],
-    combina: 'Doces, tábuas de frios, pizza e comemorações à noite.',
-  },
-  {
-    slug: 'caipirinha',
-    nome: 'Caipirinha',
-    base: 'Caipirinha gaseificada',
-    cor: '#135C4D', texto: '#FFF9E8', escuro: false,
-    titulo: 'Caipirinha gaseificada em barril | FrutVibes',
-    meta: 'Caipirinha FrutVibes: a caipirinha brasileira em versão gaseificada, pronta e gelada, servida direto do barril em bares, festas e eventos.',
-    resumo: 'O clássico brasileiro, pronto, gelado e com gás.',
-    paragrafos: [
-      'A caipirinha é o drink mais brasileiro que existe, e na FrutVibes ela ganhou uma versão gaseificada, padronizada e pronta para servir direto do barril.',
-      'Sem cortar limão, sem macerar e sem fila: o mesmo sabor em todo copo, do primeiro ao último convidado.',
-    ],
-    perfil: ['Limão em destaque', 'Doce e ácido equilibrados', 'Gás que deixa o clássico mais leve'],
-    combina: 'Feijoada, churrasco, festa junina, carnaval e roda de samba.',
-  },
-];
+const SITE = ler('config.json');
+const HOME = ler('home.json');
+const OCASIOES = ler('barril.json').ocasioes;
+const FAQ = ler('faq.json').perguntas.map((p) => [p.pergunta, p.resposta]);
 
-const FAQ = [
-  ['O que é FrutVibes?', 'FrutVibes é uma linha de drinks alcoólicos gaseificados à base de vodka com sabor de fruta, além de uma caipirinha gaseificada. Tudo é produzido e servido em barril, gelado e com gás, como um chopp.'],
-  ['Quais são os sabores?', 'Maçã Verde, Limão, Abacaxi e Frutas Vermelhas, todos à base de vodka, e a Caipirinha gaseificada.'],
-  ['FrutVibes é um chopp de vodka?', 'É servido do mesmo jeito que um chopp, na chopeira e direto do barril, mas é um drink: base de vodka, sabor de fruta e gaseificação na medida. Muita gente chama de "chopp de vodka" ou "chopp de drink".'],
-  ['Vocês atendem festas e eventos?', 'Sim. Levamos FrutVibes em barril para bares, restaurantes, casamentos, formaturas, festas universitárias, festas juninas, shows e eventos corporativos. Fale com a gente informando a data, a cidade e o número de convidados.'],
-  ['Precisa de chopeira para servir?', 'Sim, o FrutVibes em barril é servido em chopeira, como o chopp. Na hora do pedido, conte para a gente como é a estrutura do seu bar ou evento para combinarmos o serviço.'],
-  ['Como servir FrutVibes do jeito certo?', 'Bem gelado, em copo limpo e direto do barril. Mantenha o barril refrigerado e longe do sol para preservar o gás e o sabor.'],
-  ['Vai ter FrutVibes em lata?', 'Vai! Estamos trabalhando para levar os sabores FrutVibes para a lata. Siga a gente para saber primeiro do lançamento.'],
-  ['Menores de idade podem comprar?', 'Não. FrutVibes é uma bebida alcoólica e a venda é proibida para menores de 18 anos. Beba com moderação e, se beber, não dirija.'],
-];
-
-const OCASIOES = ['Bares e restaurantes', 'Casamentos', 'Formaturas', 'Festas universitárias', 'Festas juninas', 'Shows e festivais', 'Aniversários', 'Eventos corporativos', 'Carnaval', 'Churrascos'];
+const SABORES = readdirSync(join(CONTEUDO, 'sabores'))
+  .filter((f) => f.endsWith('.json'))
+  .map((f) => {
+    const s = ler('sabores', f);
+    const slug = f.slice(0, -5);
+    return {
+      ...s,
+      slug,
+      escuro: !claro(s.texto),
+      imagem: s.imagem || `/assets/img/lata-${slug}.webp`,
+      og: existsSync(join(ROOT, 'static', 'assets', 'img', `og-${slug}.jpg`)) ? `og-${slug}.jpg` : 'og-home.jpg',
+    };
+  })
+  .sort((a, b) => (a.ordem ?? 99) - (b.ordem ?? 99) || a.nome.localeCompare(b.nome, 'pt-BR'));
 
 // ---------------------------------------------------------------------------
 // Utilidades
@@ -175,7 +100,7 @@ const bolhas = '<span class="bolhas" aria-hidden="true"><i></i><i></i><i></i><i>
 const estiloSabor = (s) => `--c:${s.cor};--ct:${s.texto};--cf:${s.escuro ? 'rgba(16,35,31,.08)' : 'rgba(255,249,232,.12)'}`;
 
 const imgLata = (s, { lazy = true, classe = '' } = {}) =>
-  `<img class="${classe}" src="/assets/img/lata-${s.slug}.webp" width="360" height="932" alt="Lata FrutVibes ${esc(s.nome)} — ${esc(s.base.toLowerCase())}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}>`;
+  `<img class="${classe}" src="${esc(s.imagem)}" width="360" height="932" alt="Lata FrutVibes ${esc(s.nome)} — ${esc(s.base.toLowerCase())}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}>`;
 
 const cardSabor = (s, nivel = 3) => `
       <a class="card" href="/sabores/${s.slug}/" style="${estiloSabor(s)}">
@@ -333,8 +258,8 @@ add({
   <div class="wrap hero__in">
     <img class="hero__logo" src="/assets/img/logo-creme.webp" width="${LOGO_W}" height="${LOGO_H}" alt="FrutVibes" fetchpriority="high">
     <p class="eyebrow">Drinks gaseificados</p>
-    <h1>Drink de vodka com fruta, gaseificado e direto do barril</h1>
-    <p class="hero__lead">Maçã Verde, Limão, Abacaxi, Frutas Vermelhas e Caipirinha. Gelado, com gás na medida e servido como chopp no seu bar, festa ou evento.</p>
+    <h1>${esc(HOME.titulo)}</h1>
+    <p class="hero__lead">${esc(HOME.lead)}</p>
     <div class="acoes">
       <a class="btn" href="/sabores/">Conheça os sabores</a>
       <a class="btn btn--linha" href="/barril-para-eventos/">Barril para o seu evento</a>
@@ -348,8 +273,8 @@ add({
   <div class="wrap">
     <div class="secao__topo secao__topo--centro">
       <p class="eyebrow">Escolha a sua vibe</p>
-      <h2 id="t-sabores">Cinco sabores, um barril cheio de gás</h2>
-      <p>Quatro drinks à base de vodka com sabor de fruta e a caipirinha gaseificada, o clássico brasileiro pronto para servir.</p>
+      <h2 id="t-sabores">${esc(HOME.saboresTitulo)}</h2>
+      <p>${esc(HOME.saboresTexto)}</p>
     </div>
     <div class="cards">${SABORES.map((s) => cardSabor(s)).join('')}
     </div>
@@ -445,9 +370,9 @@ for (const s of SABORES) {
     prioridade: '0.8',
     titulo: s.titulo,
     descricao: s.meta,
-    og: `og-${s.slug}.jpg`,
+    og: s.og,
     ogAlt: `Lata FrutVibes ${s.nome}`,
-    preload: `<link rel="preload" as="image" href="/assets/img/lata-${s.slug}.webp" fetchpriority="high">`,
+    preload: `<link rel="preload" as="image" href="${esc(s.imagem)}" fetchpriority="high">`,
     dados: [
       m.dados,
       ld({
@@ -456,7 +381,7 @@ for (const s of SABORES) {
         name: `FrutVibes ${s.nome}`,
         description: s.meta,
         url: abs(caminho),
-        image: [abs(`/assets/img/lata-${s.slug}.webp`), abs(`/assets/img/og-${s.slug}.jpg`)],
+        image: [abs(s.imagem), abs(`/assets/img/${s.og}`)],
         brand: { '@type': 'Brand', name: 'FrutVibes' },
         manufacturer: { '@type': 'Organization', name: SITE.empresa || 'FrutVibes', url: abs('/') },
         category: 'Bebidas alcoólicas > Drinks prontos gaseificados',
@@ -786,7 +711,7 @@ ${indexaveis.map((p) => `  <url><loc>${abs(p.caminho)}</loc><lastmod>${HOJE}</la
 </urlset>
 `,
 );
-writeFileSync(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${abs('/sitemap.xml')}\n`);
+writeFileSync(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: ${abs('/sitemap.xml')}\n`);
 writeFileSync(
   join(OUT, 'site.webmanifest'),
   JSON.stringify(
@@ -810,4 +735,4 @@ writeFileSync(
 
 console.log(`✔ ${paginas.length} páginas geradas em public/ (${indexaveis.length} no sitemap)`);
 const faltando = ['email', 'whatsapp', 'instagram', 'cidade'].filter((k) => !SITE[k]);
-if (faltando.length) console.warn(`⚠ Preencha em SITE (build.mjs): ${faltando.join(', ')}`);
+if (faltando.length) console.warn(`⚠ Preencha no painel ou em conteudo/config.json: ${faltando.join(', ')}`);

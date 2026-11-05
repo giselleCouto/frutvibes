@@ -1,0 +1,21 @@
+{
+  "ordem": 4,
+  "nome": "Frutas Vermelhas",
+  "base": "Vodka + fruta",
+  "cor": "#C4174E",
+  "texto": "#FFF9E8",
+  "titulo": "FrutVibes Frutas Vermelhas: drink de vodka gaseificado",
+  "meta": "FrutVibes Frutas Vermelhas: drink gaseificado de vodka com sabor intenso de frutas vermelhas, cor vibrante e servido gelado direto do barril.",
+  "resumo": "Intenso, frutado e com a cor mais bonita da festa.",
+  "paragrafos": [
+    "O FrutVibes Frutas Vermelhas tem sabor marcante e frutado, com a base de vodka e o gás fino que são a assinatura da marca.",
+    "Chama atenção no copo e nas fotos: é o queridinho de aniversários, formaturas, casamentos e baladas."
+  ],
+  "perfil": [
+    "Sabor intenso de frutas vermelhas",
+    "Cor vibrante no copo",
+    "Doce na medida, final refrescante"
+  ],
+  "combina": "Doces, tábuas de frios, pizza e comemorações à noite.",
+  "imagem": "/assets/img/lata-frutas-vermelhas.webp"
+}

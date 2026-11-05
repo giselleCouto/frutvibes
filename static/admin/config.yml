@@ -1,0 +1,120 @@
+# Painel de edição do site FrutVibes (Decap CMS)
+# Salvar aqui grava no repositório do GitHub e o Railway publica o site sozinho.
+backend:
+  name: github
+  repo: giselleCouto/frutvibes
+  branch: main
+  base_url: https://AUTH_DOMINIO
+  auth_endpoint: auth
+  commit_messages:
+    create: 'Painel: cria {{collection}} “{{slug}}”'
+    update: 'Painel: atualiza {{collection}} “{{slug}}”'
+    delete: 'Painel: remove {{collection}} “{{slug}}”'
+    uploadMedia: 'Painel: envia imagem {{path}}'
+    deleteMedia: 'Painel: remove imagem {{path}}'
+
+locale: pt
+publish_mode: simple
+site_url: https://www.frutvibes.com
+display_url: https://www.frutvibes.com
+logo_url: https://www.frutvibes.com/assets/img/logo-preta.png
+
+media_folder: static/assets/img
+public_folder: /assets/img
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+
+collections:
+  - name: sabores
+    label: Sabores
+    label_singular: Sabor
+    description: Cada sabor vira uma página própria do site, com sua cor e sua lata.
+    folder: conteudo/sabores
+    extension: json
+    format: json
+    create: true
+    delete: true
+    identifier_field: nome
+    slug: '{{slug}}'
+    summary: '{{ordem}}. {{nome}}'
+    sortable_fields: [ordem, nome]
+    fields:
+      - { name: nome, label: Nome do sabor, widget: string, hint: 'Aparece no cartão e no título da página. Ex.: Maçã Verde' }
+      - { name: ordem, label: Ordem de exibição, widget: number, value_type: int, min: 1, step: 1, default: 9, hint: 'Menor número aparece primeiro' }
+      - { name: base, label: Linha de cima do cartão, widget: string, default: 'Vodka + fruta' }
+      - { name: cor, label: Cor do sabor, widget: color, default: '#3F9A2B', hint: 'Cor de fundo do cartão e da página do sabor' }
+      - name: texto
+        label: Cor do texto sobre essa cor
+        widget: select
+        default: '#FFF9E8'
+        options:
+          - { label: 'Texto claro (para cores escuras)', value: '#FFF9E8' }
+          - { label: 'Texto escuro (para cores claras)', value: '#10231F' }
+      - { name: imagem, label: Foto da lata, widget: image, default: '/assets/img/lata-maca-verde.webp', hint: 'Imagem com fundo transparente ou claro, em pé' }
+      - { name: resumo, label: Frase curta do cartão, widget: string, hint: 'Uma linha. Ex.: Tropical, docinho e com cara de verão.' }
+      - name: paragrafos
+        label: Textos da página do sabor
+        widget: list
+        field: { name: paragrafo, label: Parágrafo, widget: text }
+      - name: perfil
+        label: Perfil do sabor (lista de marcadores)
+        widget: list
+        field: { name: item, label: Item, widget: string }
+      - { name: combina, label: Combina com, widget: text }
+      - { name: titulo, label: 'SEO: título no Google', widget: string, pattern: ['^.{10,65}$', 'Use entre 10 e 65 caracteres'] }
+      - { name: meta, label: 'SEO: descrição no Google', widget: text, pattern: ['^.{80,165}$', 'Use entre 80 e 165 caracteres'] }
+
+  - name: paginas
+    label: Páginas
+    files:
+      - name: home
+        label: Página inicial
+        file: conteudo/home.json
+        fields:
+          - { name: titulo, label: Título principal, widget: string }
+          - { name: lead, label: Texto de apoio, widget: text }
+          - { name: saboresTitulo, label: 'Título da seção de sabores', widget: string }
+          - { name: saboresTexto, label: 'Texto da seção de sabores', widget: text }
+
+      - name: barril
+        label: Barril para eventos
+        file: conteudo/barril.json
+        fields:
+          - name: ocasioes
+            label: Onde FrutVibes combina
+            widget: list
+            field: { name: ocasiao, label: Ocasião, widget: string }
+
+      - name: faq
+        label: Perguntas frequentes
+        file: conteudo/faq.json
+        fields:
+          - name: perguntas
+            label: Perguntas
+            label_singular: Pergunta
+            widget: list
+            summary: '{{fields.pergunta}}'
+            fields:
+              - { name: pergunta, label: Pergunta, widget: string }
+              - { name: resposta, label: Resposta, widget: text }
+
+  - name: config
+    label: Dados da marca
+    files:
+      - name: contato
+        label: Contato e identificação
+        file: conteudo/config.json
+        fields:
+          - { name: email, label: E-mail de contato, widget: string, required: false }
+          - { name: whatsapp, label: WhatsApp, widget: string, required: false, hint: 'Só números, com 55 e DDD. Ex.: 5531999999999. Vazio esconde os botões de WhatsApp.' }
+          - { name: instagram, label: Instagram, widget: string, required: false, hint: 'Usuário sem @. Ex.: frutvibes' }
+          - { name: cidade, label: Cidade, widget: string, required: false }
+          - { name: estado, label: Estado (sigla), widget: string, required: false }
+          - { name: empresa, label: Empresa responsável, widget: string, required: false }
+          - { name: slogan, label: Slogan, widget: string, required: false }
+          - { name: nome, label: Nome da marca, widget: string }
+          - { name: url, label: Endereço do site, widget: string, hint: 'Sem barra no final. Mudar isso afeta o Google: só altere se o domínio mudar.' }
+          - { name: googleSiteVerification, label: Código do Google Search Console, widget: string, required: false }

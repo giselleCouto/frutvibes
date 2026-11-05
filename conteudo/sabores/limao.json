@@ -1,0 +1,21 @@
+{
+  "ordem": 2,
+  "nome": "Limão",
+  "base": "Vodka + fruta",
+  "cor": "#B4D236",
+  "texto": "#10231F",
+  "titulo": "FrutVibes Limão: drink de vodka com limão gaseificado",
+  "meta": "FrutVibes Limão é o drink gaseificado de vodka com limão: cítrico, leve e refrescante, servido gelado direto do barril em bares, festas e eventos.",
+  "resumo": "Cítrico, leve e daquele jeito que todo mundo gosta.",
+  "paragrafos": [
+    "Clássico brasileiro não tem erro: o FrutVibes Limão traz a acidez e o perfume do limão com base de vodka e gás na medida certa.",
+    "É o sabor coringa do barril: agrada a quase todo mundo e acompanha do churrasco à balada."
+  ],
+  "perfil": [
+    "Perfume cítrico de limão",
+    "Acidez refrescante",
+    "Leve, gelado e fácil de beber"
+  ],
+  "combina": "Churrasco, comida de boteco, feijoada e dias quentes.",
+  "imagem": "/assets/img/lata-limao.webp"
+}

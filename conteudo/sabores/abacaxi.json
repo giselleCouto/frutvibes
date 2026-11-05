@@ -1,0 +1,21 @@
+{
+  "ordem": 3,
+  "nome": "Abacaxi",
+  "base": "Vodka + fruta",
+  "cor": "#F2C31C",
+  "texto": "#10231F",
+  "titulo": "FrutVibes Abacaxi: drink de vodka com abacaxi gaseificado",
+  "meta": "FrutVibes Abacaxi: drink gaseificado à base de vodka com sabor tropical de abacaxi, docinho e refrescante, servido gelado direto do barril.",
+  "resumo": "Tropical, docinho e com cara de verão.",
+  "paragrafos": [
+    "O FrutVibes Abacaxi é puro clima de praia: o sabor doce e tropical do abacaxi encontra a vodka e ganha borbulhas que deixam tudo mais leve.",
+    "Perfeito para festas ao ar livre, pool party, luau e para quem prefere um drink mais frutado."
+  ],
+  "perfil": [
+    "Sabor tropical de abacaxi",
+    "Doçura equilibrada",
+    "Refrescância de verão"
+  ],
+  "combina": "Churrasco, comida agridoce, petiscos salgados e festas na piscina.",
+  "imagem": "/assets/img/lata-abacaxi.webp"
+}
