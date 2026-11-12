@@ -516,14 +516,16 @@ main > section, .rodape { position: relative; isolation: isolate; }
 @media (min-width: 769px) {
   /* topo: título um pouco mais largo, botão maior e mais perto do texto, copos inclinados e espalhados */
   .hero__texto { top: -1.4rem; }
-  .hero h1 .hero__marca { translate: -1px -4px; }
-  .hero__texto .btn { margin-top: -.45rem; font-size: calc(var(--t-lg) * 1.36); }
+  .hero h1 .hero__marca { margin-right: -1.34em; margin-bottom: -.08em; font-size: .982em; translate: -18px -9px; }
+  .hero__lead { max-width: 31ch; margin-bottom: calc(var(--e-4) + 1.4em); translate: 0 6px; }
+  .hero__texto .btn { margin-top: -.45rem; font-size: calc(var(--t-lg) * 1.36); translate: 0 -15px; }
+  [data-lp-id="hero-botao-seta"] { translate: -5px 2px; }
   .hero__copos { translate: -4px 1px; }
   .hero__copo--e { left: 14.2%; bottom: 7%; transform: rotate(-23.5deg); }
   .hero__copo--d { right: 18%; bottom: 13.5%; transform: rotate(32.7deg); }
   .hero__copo--c { width: 108.8%; max-width: none; height: auto; translate: -6.6% -5.5%; }
   .hero__brilho--2 { left: 71.2%; bottom: 11.8%; }
-  .hero__selo svg { translate: 0 68px; }
+  .hero__selo svg { width: 139.5%; height: 139.5%; translate: -55px 150px; }
 
   /* sabores: título e texto um pouco à direita e acima, botão maior, flor no alto atrás do texto */
   .sabores-split { isolation: isolate; }
@@ -534,6 +536,8 @@ main > section, .rodape { position: relative; isolation: isolate; }
   /* oferta: "a partir de" menor e preço maior; produtos, etiquetas e círculo rearrumados */
   .preco small { margin: 4px 0 calc(.6em - 4px) 7px; font-size: 1.5rem; }
   .preco strong { margin: -1px 0 -.2em; font-size: clamp(4.3rem, 3.3rem + 4.5vw, 8.2rem); white-space: nowrap; }
+  .oferta { translate: 0 -42px; }
+  [data-lp-id="oferta-bolhas"] { top: -102px; }
   .oferta__produtos .fundo { z-index: -3; }
   .oferta__circulo { width: 128.4%; aspect-ratio: 745 / 644; translate: -2.8% 17.1%; }
   .oferta__asterisco { --cor: var(--branco); z-index: -2; width: 47.2%; height: auto; aspect-ratio: 274 / 260; translate: -72.6% 14.2%; }
@@ -542,6 +546,9 @@ main > section, .rodape { position: relative; isolation: isolate; }
   .oferta__barril--30 { translate: 15.4% 10.9%; }
   .etiqueta--50 { left: 2.8%; top: 51.9%; }
   .etiqueta--30 { left: 68.6%; bottom: 23.5%; }
+
+  /* fotos: título um pouco à direita e acima */
+  .polaroids__titulo { translate: 7.7vw -8px; }
 
   /* como funciona: "no seu evento" maior e mais baixo, seta menor, botão maior */
   .como__topo h2 { position: relative; top: -7px; }
@@ -562,12 +569,14 @@ main > section, .rodape { position: relative; isolation: isolate; }
   .final h2 { position: relative; top: -16px; max-width: 13.2ch; }
   .final__gole { margin-top: calc(.4rem - 14px); font-size: calc(var(--t-xl) * 1.246); }
   .final__copo { --copo: clamp(309px, 30.9vw, 540px); position: relative; z-index: -1; width: var(--copo); max-width: none; margin-top: calc(var(--e-5) - 13px); margin-bottom: calc((clamp(160px, 16vw, 280px) - var(--copo)) * 1.427 + 75px); translate: 21px -59px; }
-  .final__asterisco { left: 77.7%; top: calc(var(--secao) * .5 + 113px); width: clamp(97px, 11.3vw, 155px); height: clamp(70px, 8.2vw, 112px); }
+  .final__asterisco { left: calc(77.7% - 34px); top: calc(var(--secao) * .5 + 70px); width: clamp(97px, 11.3vw, 155px); height: clamp(70px, 8.2vw, 112px); }
+  .final__lead { translate: -2px -4px; }
   .form { top: -42px; }
   [data-lp-id="final-divisao-onda"] { z-index: 2; translate: 0 -17px; }
   .rodape > .fundo { top: -19px; }
+  .rodape img { height: calc(clamp(32px, 1.4rem + 1vw, 44px) * 1.068); margin-right: -11px; margin-bottom: calc(var(--e-2) - 3px); translate: -11px -3px; }
 
-  /* Aviso de orçamento enviado: logo colorido no lugar do copo (no celular continua o copo) */
+  /* Aviso de orçamento enviado: logo colorido no lugar do copo */
   .aviso__copo { top: calc(-5.5rem + 59px); width: 235px; max-width: none; height: auto; }
 }
 
@@ -628,4 +637,9 @@ main > section, .rodape { position: relative; isolation: isolate; }
   .final__lead { margin-inline: auto; }
   .final__gole { margin-bottom: 1.2rem; font-size: calc(var(--t-xl) * 1.245); }
   .final__asterisco { right: calc(5% - 9px); top: calc(1.5rem + 344px); }
+
+  /* aviso de orçamento enviado: logo colorido menor e mais baixo, texto mais estreito, dica menor */
+  .aviso__copo { top: calc(-5.5rem + 63px); width: 214px; max-width: none; height: auto; }
+  .aviso__texto { max-width: 270px; margin-inline: auto; translate: 0 2px; }
+  .aviso__dica { margin-bottom: calc(var(--e-4) + 5px); font-size: .9375rem; translate: 0 7px; }
 }
