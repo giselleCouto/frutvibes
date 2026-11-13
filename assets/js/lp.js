@@ -255,6 +255,7 @@
       palco.classList.remove('arrastando');
     };
     palco.addEventListener('pointerup', soltar);
+    palco.addEventListener('dragstart', function (e) { e.preventDefault(); }); // arrastar um copo gira a órbita, não puxa a imagem
     palco.addEventListener('pointercancel', soltar);
 
     var ajustar = function () { medir(); desenhar(performance.now()); };
