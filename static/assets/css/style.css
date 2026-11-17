@@ -109,6 +109,44 @@ p { margin: 0 0 1em; }
   .nav a { font-size: 1.1rem; }
 }
 
+/* Instagram no menu */
+.nav__insta { display: inline-flex; align-items: center; gap: .45rem; }
+.nav__insta svg { width: 22px; height: 22px; }
+@media (min-width: 881px) { .nav__insta span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } }
+
+/* Botões fixos de contato */
+.flutuantes {
+  position: fixed;
+  right: clamp(.8rem, 2vw, 1.4rem);
+  bottom: clamp(.8rem, 2vw, 1.4rem);
+  z-index: 40;
+  display: grid;
+  gap: .6rem;
+  justify-items: end;
+}
+.flutuante {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  min-height: 52px;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  font-size: .98rem;
+  text-decoration: none;
+  box-shadow: 0 14px 28px -12px rgba(10, 58, 51, .65);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.flutuante:hover { transform: translateY(-3px); box-shadow: 0 18px 32px -12px rgba(10, 58, 51, .75); }
+.flutuante svg { flex: none; }
+.flutuante--zap { background: #25D366; }
+.flutuante--insta { background: linear-gradient(45deg, #F9CE34, #EE2A7B 55%, #6228D7); }
+@media (max-width: 640px) {
+  .flutuante { min-width: 52px; padding: 0; justify-content: center; }
+  .flutuante span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+
 /* Decoração: bolhas e onda */
 .bolhas { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .bolhas i { position: absolute; border: 3px solid rgba(255, 249, 232, .28); border-radius: 50%; animation: flutua 8s ease-in-out infinite; }

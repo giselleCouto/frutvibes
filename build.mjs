@@ -90,6 +90,19 @@ const ICONES = {
   bolhas: '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="15" r="5"/><circle cx="17" cy="7" r="3"/><circle cx="18.5" cy="16" r="1.5"/></svg>',
   barril: '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10c1.6 3 1.6 15 0 18H7C5.4 18 5.4 6 7 3z"/><path d="M5.9 8.5h12.2M5.9 15.5h12.2"/></svg>',
   lata: '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 3h9l1.5 2.5v13L16.5 21h-9L6 18.5v-13z"/><path d="M6 7h12M6 17h12"/></svg>',
+  whatsapp: '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.1 14.9l-.3-.2-2.6.7.7-2.5-.2-.3A8 8 0 0 1 12 4zm-3.3 4c-.2 0-.5 0-.7.4-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.2.2 1.8 2.8 4.4 3.8 2.2.9 2.6.7 3.1.6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.2-.7.1l-.9 1.2c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6.3-.5v-.5l-.9-2c-.2-.5-.4-.5-.6-.5z"/></svg>',
+  instagram: '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg>',
+};
+
+// Botões fixos de contato rápido (aparecem quando o canal está preenchido)
+const flutuantes = () => {
+  const botoes = [
+    SITE.whatsapp &&
+      `<a class="flutuante flutuante--zap" href="${linkWhats('Olá! Vim pelo site da FrutVibes e quero fazer um pedido.')}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp de vendas">${ICONES.whatsapp}<span>WhatsApp</span></a>`,
+    SITE.instagram &&
+      `<a class="flutuante flutuante--insta" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener" aria-label="Seguir a FrutVibes no Instagram">${ICONES.instagram}<span>Instagram</span></a>`,
+  ].filter(Boolean);
+  return botoes.length ? `<div class="flutuantes">${botoes.join('')}</div>` : '';
 };
 
 const onda = (cor = 'var(--creme)') =>
@@ -174,13 +187,18 @@ ${dados.join('\n')}
     <a class="topo__logo" href="/" aria-label="FrutVibes — página inicial"><img src="/assets/img/logo-creme.webp" width="${LOGO_W}" height="${LOGO_H}" alt="FrutVibes"></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     <nav id="menu" class="nav" aria-label="Menu principal">
-      <ul>${navHtml}<li><a class="btn btn--sm" href="/contato/">Contato</a></li></ul>
+      <ul>${navHtml}${
+        SITE.instagram
+          ? `<li><a class="nav__insta" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener" aria-label="Instagram da FrutVibes">${ICONES.instagram}<span>Instagram</span></a></li>`
+          : ''
+      }<li><a class="btn btn--sm" href="/contato/">Contato</a></li></ul>
     </nav>
   </div>
 </header>
 <main id="conteudo">
 ${corpo}
 </main>
+${flutuantes()}
 <div class="faixa-sabores" aria-hidden="true"></div>
 <footer class="rodape">
   <div class="wrap">
