@@ -561,6 +561,8 @@ for (const s of SABORES) {
       <li><h3>Fale com a gente</h3><p>Conte a data, a cidade, o número de convidados e como é a estrutura do bar.</p></li>
       <li><h3>Sirva bem gelado</h3><p>Barril refrigerado, chopeira pronta e drink saindo com gás na medida.</p></li>
     </ol>
+    <p class="incluso"><strong>A chopeira vai junto, sem caução.</strong> O aluguel do maquinário já está no preço do barril: você não paga nada à parte pelo equipamento.</p>
+    <p class="miudo">Equipamentos cedidos sem caução; avarias durante o uso são de responsabilidade do contratante, conforme contrato.</p>
     <div class="acoes">${ctaPedido('Olá! Quero FrutVibes em barril. Data: / Cidade: / Convidados: ', 'btn btn--escuro')}</div>
   </div>
 </section>
