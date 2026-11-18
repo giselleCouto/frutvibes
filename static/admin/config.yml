@@ -119,3 +119,4 @@ collections:
           - { name: nome, label: Nome da marca, widget: string }
           - { name: url, label: Endereço do site, widget: string, hint: 'Sem barra no final. Mudar isso afeta o Google: só altere se o domínio mudar.' }
           - { name: googleSiteVerification, label: Código do Google Search Console, widget: string, required: false }
+          - { name: umamiWebsiteId, label: ID do site nas estatísticas (Umami), widget: string, required: false, hint: 'Copie em Settings → Websites no painel de estatísticas. Vazio desliga a medição.' }

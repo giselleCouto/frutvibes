@@ -53,10 +53,17 @@ const LOGO_W = 1000, LOGO_H = 263;
 const linkWhats = (msg) => (SITE.whatsapp ? `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}` : '/contato/');
 const ctaPedido = (msg, classe = 'btn') =>
   SITE.whatsapp
-    ? `<a class="${classe}" href="${linkWhats(msg)}" target="_blank" rel="noopener">Pedir pelo WhatsApp</a>`
+    ? `<a class="${classe}" href="${linkWhats(msg)}" target="_blank" rel="noopener" data-umami-event="WhatsApp (botão de pedido)">Pedir pelo WhatsApp</a>`
     : `<a class="${classe}" href="/contato/">Fale com a gente</a>`;
 
 const sameAs = [SITE.instagram && `https://www.instagram.com/${SITE.instagram}/`].filter(Boolean);
+
+// Estatísticas (Umami). O script e a coleta passam pelo próprio domínio,
+// em /stats.js e /api/send, para não serem bloqueados por extensões.
+const estatisticas = () =>
+  SITE.umamiWebsiteId
+    ? `<script defer src="/stats.js" data-website-id="${esc(SITE.umamiWebsiteId)}"></script>`
+    : '';
 
 const ORGANIZACAO = {
   '@type': 'Organization',
@@ -105,7 +112,7 @@ const blocoChopp = () =>
       <h2 id="t-chopp">Complete o pedido com chopp gelado</h2>
       <p>A FrutVibes é da mesma casa da ${esc(SITE.empresa || 'Gama Rei do Chopp')}. Dá para somar barris de chopp ao seu pedido e deixar o bar completo.</p>
     </div>
-    <a class="btn" href="https://www.instagram.com/${SITE.choppInstagram}/" target="_blank" rel="noopener">Ver o chopp no Instagram</a>
+    <a class="btn" href="https://www.instagram.com/${SITE.choppInstagram}/" target="_blank" rel="noopener" data-umami-event="Chopp (bloco do site)">Ver o chopp no Instagram</a>
   </div>
 </section>`
     : '';
@@ -114,9 +121,9 @@ const blocoChopp = () =>
 const flutuantes = () => {
   const botoes = [
     SITE.whatsapp &&
-      `<a class="flutuante flutuante--zap" href="${linkWhats('Olá! Vim pelo site da FrutVibes e quero fazer um pedido.')}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp de vendas">${ICONES.whatsapp}<span>WhatsApp</span></a>`,
+      `<a class="flutuante flutuante--zap" href="${linkWhats('Olá! Vim pelo site da FrutVibes e quero fazer um pedido.')}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp de vendas" data-umami-event="WhatsApp (botão fixo)">${ICONES.whatsapp}<span>WhatsApp</span></a>`,
     SITE.instagram &&
-      `<a class="flutuante flutuante--insta" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener" aria-label="Seguir a FrutVibes no Instagram">${ICONES.instagram}<span>Instagram</span></a>`,
+      `<a class="flutuante flutuante--insta" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener" aria-label="Seguir a FrutVibes no Instagram" data-umami-event="Instagram (botão fixo)">${ICONES.instagram}<span>Instagram</span></a>`,
   ].filter(Boolean);
   return botoes.length ? `<div class="flutuantes">${botoes.join('')}</div>` : '';
 };
@@ -195,6 +202,7 @@ ${SITE.googleSiteVerification ? `<meta name="google-site-verification" content="
 <link rel="stylesheet" href="/assets/css/style.css?v=${VERSAO}">
 ${preload}
 ${dados.join('\n')}
+${estatisticas()}
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -205,7 +213,7 @@ ${dados.join('\n')}
     <nav id="menu" class="nav" aria-label="Menu principal">
       <ul>${navHtml}${
         SITE.instagram
-          ? `<li><a class="nav__insta" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener" aria-label="Instagram da FrutVibes">${ICONES.instagram}<span>Instagram</span></a></li>`
+          ? `<li><a class="nav__insta" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener" aria-label="Instagram da FrutVibes" data-umami-event="Instagram (menu)">${ICONES.instagram}<span>Instagram</span></a></li>`
           : ''
       }<li><a class="btn btn--sm" href="/contato/">Contato</a></li></ul>
     </nav>
@@ -637,10 +645,10 @@ ${blocoChopp()}
   const caminho = '/contato/';
   const m = migalhas([['Início', '/'], ['Contato', caminho]]);
   const canais = [
-    SITE.whatsapp && `<a class="contato" href="${linkWhats('Olá! Vim pelo site da FrutVibes.')}" target="_blank" rel="noopener"><span class="eyebrow">WhatsApp</span><strong>Pedidos e orçamentos</strong><span>Resposta rápida pelo celular</span></a>`,
-    SITE.email && `<a class="contato" href="mailto:${esc(SITE.email)}"><span class="eyebrow">E-mail</span><strong>${esc(SITE.email)}</strong><span>Parcerias, bares e distribuidores</span></a>`,
-    SITE.instagram && `<a class="contato" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener"><span class="eyebrow">Instagram</span><strong>@${esc(SITE.instagram)}</strong><span>Novidades e lançamentos</span></a>`,
-    SITE.choppInstagram && `<a class="contato" href="https://www.instagram.com/${SITE.choppInstagram}/" target="_blank" rel="noopener"><span class="eyebrow">Chopp</span><strong>Somar chopp ao pedido</strong><span>@${esc(SITE.choppInstagram)} no Instagram</span></a>`,
+    SITE.whatsapp && `<a class="contato" href="${linkWhats('Olá! Vim pelo site da FrutVibes.')}" target="_blank" rel="noopener" data-umami-event="WhatsApp (página de contato)"><span class="eyebrow">WhatsApp</span><strong>Pedidos e orçamentos</strong><span>Resposta rápida pelo celular</span></a>`,
+    SITE.email && `<a class="contato" href="mailto:${esc(SITE.email)}" data-umami-event="E-mail (página de contato)"><span class="eyebrow">E-mail</span><strong>${esc(SITE.email)}</strong><span>Parcerias, bares e distribuidores</span></a>`,
+    SITE.instagram && `<a class="contato" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener" data-umami-event="Instagram (página de contato)"><span class="eyebrow">Instagram</span><strong>@${esc(SITE.instagram)}</strong><span>Novidades e lançamentos</span></a>`,
+    SITE.choppInstagram && `<a class="contato" href="https://www.instagram.com/${SITE.choppInstagram}/" target="_blank" rel="noopener" data-umami-event="Chopp (página de contato)"><span class="eyebrow">Chopp</span><strong>Somar chopp ao pedido</strong><span>@${esc(SITE.choppInstagram)} no Instagram</span></a>`,
   ].filter(Boolean);
   add({
     caminho,
