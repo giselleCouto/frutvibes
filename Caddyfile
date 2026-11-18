@@ -23,13 +23,18 @@
 	header /favicon.ico Cache-Control "public, max-age=2592000"
 
 	# Estatísticas (Umami): script e coleta servidos pelo próprio domínio,
-	# para não serem barrados por bloqueadores. Vão pela rede privada do Railway.
+	# para não serem barrados por bloqueadores.
 	handle /stats.js {
 		rewrite * /script.js
-		reverse_proxy umami.railway.internal:3000
+		reverse_proxy https://{$UMAMI_HOST} {
+			header_up Host {$UMAMI_HOST}
+		}
 	}
 	handle /api/send {
-		reverse_proxy umami.railway.internal:3000
+		reverse_proxy https://{$UMAMI_HOST} {
+			header_up Host {$UMAMI_HOST}
+			header_up X-Forwarded-For {remote_host}
+		}
 	}
 
 	file_server
