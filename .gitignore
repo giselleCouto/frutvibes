@@ -13,3 +13,7 @@ __pycache__/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Cache de imagens da proposta (recriado pelo script)
+comercial/.img/
+comercial/*.html
