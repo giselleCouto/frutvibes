@@ -174,6 +174,7 @@ const html = `<!doctype html>
   .ocas__lista span { background: #fff; border: 1px solid var(--borda); border-radius: 999px; padding: 2.2mm 5mm; font-size: 9.5pt; font-weight: 600; color: var(--tinta2); }
   .chopp { margin-top: 6mm; border: 1px dashed var(--teal-claro); border-radius: 4mm; padding: 4.5mm 6mm; font-size: 10pt; color: var(--tinta2); }
   .chopp strong { color: var(--teal); }
+  .miudo { position: absolute; left: 16mm; right: 16mm; bottom: 17mm; font-size: 7pt; line-height: 1.4; color: #7A8A85; }
   .legal { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; border-top: 1px solid var(--borda); padding-top: 3mm;
     display: flex; justify-content: space-between; font-size: 8.5pt; color: var(--tinta2); }
   .legal b { color: var(--tinta); text-transform: uppercase; letter-spacing: .05em; }
@@ -283,8 +284,8 @@ const html = `<!doctype html>
       </tr>
     </tbody>
   </table>
-  <p class="incluso"><b>Aluguel do maquinário incluso.</b> A chopeira vai junto com o barril, sem custo à parte.</p>
-  <p class="obs">Valores por barril. Frete, caução e condições de pagamento são combinados caso a caso com a equipe comercial.</p>
+  <p class="incluso"><b>Aluguel do maquinário incluso, sem caução.</b> A chopeira vai junto com o barril, sem custo à parte.</p>
+  <p class="obs">Valores por barril. Frete e condições de pagamento são combinados caso a caso com a equipe comercial.</p>
 
   <div class="fatos">
     <div class="fato"><b>30 e 50 L</b><span>Dois tamanhos de barril, misturando sabores como preferir</span></div>
@@ -310,6 +311,8 @@ const html = `<!doctype html>
   </div>
 
   <p class="chopp"><strong>Quer chopp também?</strong> A FrutVibes é da mesma casa da ${SITE.empresa}. Dá para somar barris de chopp ao pedido e fechar o bar inteiro com um fornecedor só.</p>
+
+  <p class="miudo">Equipamentos cedidos sem cobrança de caução. Durante o período de uso, eventuais avarias nos equipamentos são de responsabilidade do contratante, conforme cláusula do contrato.</p>
 
   <div class="legal">
     <span><b>Beba com moderação.</b> Venda proibida para menores de 18 anos.</span>

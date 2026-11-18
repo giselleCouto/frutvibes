@@ -237,6 +237,13 @@ p { margin: 0 0 1em; }
 .card__img { display: grid; place-items: center; aspect-ratio: 4 / 5; padding: .9rem; overflow: hidden; border-radius: calc(var(--raio) - 10px); background: var(--moldura); }
 .card__img img { width: auto; height: 100%; object-fit: contain; transition: transform .35s ease; }
 .card:hover .card__img img { transform: scale(1.05) rotate(2deg); }
+/* Sabor ainda sem arte de lata: um rótulo na cor do sabor, no lugar da imagem. */
+.lata-marca { display: grid; align-content: center; justify-items: center; gap: .5rem; aspect-ratio: 36 / 93; max-width: 100%; padding: 1.4rem 1rem; border-radius: 999px / 10%; background: linear-gradient(160deg, var(--c), color-mix(in srgb, var(--c) 72%, #000)); color: var(--ct); text-align: center; box-shadow: inset 0 0 0 2px rgba(255, 249, 232, .35); }
+.lata-marca b { font-size: 1.5rem; line-height: 1; letter-spacing: -.01em; }
+.lata-marca em { font-style: normal; font-weight: 700; font-size: 1rem; line-height: 1.2; }
+.lata-marca small { font-size: .62rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; opacity: .85; }
+.card__img .lata-marca { height: 100%; width: auto; }
+.sabor-hero__img .lata-marca { height: min(520px, 55vh); width: auto; }
 .card__base { margin: 1rem .4rem 0; font-size: .7rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; opacity: .85; }
 .card__titulo { margin: .25rem .4rem .35rem; font-size: 1.4rem; }
 .card__texto { margin: 0 .4rem 1rem; font-size: .96rem; opacity: .92; }

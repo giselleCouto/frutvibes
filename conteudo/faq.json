@@ -2,11 +2,11 @@
   "perguntas": [
     {
       "pergunta": "O que é FrutVibes?",
-      "resposta": "FrutVibes é uma linha de drinks alcoólicos gaseificados à base de vodka com sabor de fruta, além de uma caipirinha gaseificada. Tudo é produzido e servido em barril, gelado e com gás, como um chopp."
+      "resposta": "FrutVibes é uma linha de drinks alcoólicos gaseificados à base de vodka, com sabor de fruta ou com energético, além de uma caipirinha gaseificada. Tudo é produzido e servido em barril, gelado e com gás, como um chopp."
     },
     {
       "pergunta": "Quais são os sabores?",
-      "resposta": "Maçã Verde, Limão, Abacaxi e Frutas Vermelhas, todos à base de vodka, e a Caipirinha gaseificada."
+      "resposta": "Maçã Verde, Limão, Abacaxi, Frutas Vermelhas e Vodka com Energético, todos à base de vodka, e a Caipirinha gaseificada."
     },
     {
       "pergunta": "FrutVibes é um chopp de vodka?",
@@ -18,7 +18,11 @@
     },
     {
       "pergunta": "Precisa de chopeira para servir?",
-      "resposta": "Sim, o FrutVibes em barril é servido em chopeira, como o chopp. Na hora do pedido, conte para a gente como é a estrutura do seu bar ou evento para combinarmos o serviço."
+      "resposta": "Sim, e a chopeira vai junto com o barril: o aluguel do maquinário já está no preço, sem custo à parte. Na hora do pedido, conte para a gente como é a estrutura do seu bar ou evento (espaço, energia e refrigeração) para combinarmos a entrega e a instalação."
+    },
+    {
+      "pergunta": "Vocês cobram caução pelos equipamentos?",
+      "resposta": "Não cobramos caução. A chopeira é entregue junto com o barril e o aluguel já está incluído no valor. Durante o período de uso, eventuais avarias nos equipamentos são de responsabilidade do contratante, conforme cláusula do contrato."
     },
     {
       "pergunta": "Como servir FrutVibes do jeito certo?",

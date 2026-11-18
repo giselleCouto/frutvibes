@@ -32,15 +32,25 @@ const SABORES = readdirSync(join(CONTEUDO, 'sabores'))
   .map((f) => {
     const s = ler('sabores', f);
     const slug = f.slice(0, -5);
+    const img = (nome) => existsSync(join(ROOT, 'static', 'assets', 'img', nome));
+    // Sabor novo pode entrar antes de existir a arte da lata: a página se vira sem ela.
+    const imagem = s.imagem || (img(`lata-${slug}.webp`) ? `/assets/img/lata-${slug}.webp` : '');
     return {
       ...s,
       slug,
       escuro: !claro(s.texto),
-      imagem: s.imagem || `/assets/img/lata-${slug}.webp`,
-      og: existsSync(join(ROOT, 'static', 'assets', 'img', `og-${slug}.jpg`)) ? `og-${slug}.jpg` : 'og-home.jpg',
+      imagem,
+      og: img(`og-${slug}.jpg`) ? `og-${slug}.jpg` : 'og-home.jpg',
     };
   })
   .sort((a, b) => (a.ordem ?? 99) - (b.ordem ?? 99) || a.nome.localeCompare(b.nome, 'pt-BR'));
+
+// Listas de sabores saem daqui, não escritas à mão: sabor novo entra em todo lugar sozinho.
+const listaPt = (itens) => (itens.length < 2 ? itens[0] ?? '' : `${itens.slice(0, -1).join(', ')} e ${itens.at(-1)}`);
+const NOMES_SABORES = listaPt(SABORES.map((s) => s.nome));
+const NOMES_SABORES_MIN = listaPt(SABORES.map((s) => s.nome.toLowerCase()));
+const POR_EXTENSO = ['zero', 'Um', 'Dois', 'Três', 'Quatro', 'Cinco', 'Seis', 'Sete', 'Oito', 'Nove', 'Dez'];
+const QTD_SABORES = POR_EXTENSO[SABORES.length] ?? String(SABORES.length);
 
 // ---------------------------------------------------------------------------
 // Utilidades
@@ -136,7 +146,9 @@ const bolhas = '<span class="bolhas" aria-hidden="true"><i></i><i></i><i></i><i>
 const estiloSabor = (s) => `--c:${s.cor};--ct:${s.texto};--cf:${s.escuro ? 'rgba(16,35,31,.08)' : 'rgba(255,249,232,.12)'}`;
 
 const imgLata = (s, { lazy = true, classe = '' } = {}) =>
-  `<img class="${classe}" src="${esc(s.imagem)}" width="360" height="932" alt="Lata FrutVibes ${esc(s.nome)} — ${esc(s.base.toLowerCase())}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}>`;
+  s.imagem
+    ? `<img class="${classe}" src="${esc(s.imagem)}" width="360" height="932" alt="Lata FrutVibes ${esc(s.nome)} — ${esc(s.base.toLowerCase())}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}>`
+    : `<span class="lata-marca ${classe}"><b>FrutVibes</b><em>${esc(s.nome)}</em><small>${esc(s.base)}</small></span>`;
 
 const cardSabor = (s, nivel = 3) => `
       <a class="card" href="/sabores/${s.slug}/" style="${estiloSabor(s)}">
@@ -283,7 +295,7 @@ add({
   caminho: '/',
   prioridade: '1.0',
   titulo: 'FrutVibes | Drink de vodka gaseificado em barril',
-  descricao: 'Drinks gaseificados de vodka nos sabores maçã verde, limão, abacaxi e frutas vermelhas, além de caipirinha. Em barril para bares, festas e eventos.',
+  descricao: `Drinks gaseificados em barril nos sabores ${NOMES_SABORES_MIN}. Para bares, festas e eventos.`,
   preload: '<link rel="preload" as="image" href="/assets/img/linha-frutvibes.webp" imagesrcset="/assets/img/linha-frutvibes-768.webp 768w, /assets/img/linha-frutvibes.webp 1536w" imagesizes="(max-width: 1180px) 100vw, 1100px" fetchpriority="high">',
   dados: [
     ld({ '@type': 'WebSite', '@id': abs('/#site'), name: 'FrutVibes', alternateName: 'Frut Vibes', url: abs('/'), inLanguage: 'pt-BR', publisher: { '@id': abs('/#organizacao') } }),
@@ -351,7 +363,7 @@ add({
       <ul class="lista">
         <li>Pronto para servir, padronizado do primeiro ao último copo</li>
         <li>Mais agilidade no atendimento do bar</li>
-        <li>Cinco sabores para montar o cardápio do seu jeito</li>
+        <li>${QTD_SABORES} sabores para montar o cardápio do seu jeito</li>
       </ul>
       <div class="acoes">
         <a class="btn btn--escuro" href="/barril-para-eventos/">Ver como funciona</a>
@@ -382,7 +394,7 @@ ${blocoChopp()}
     caminho: '/sabores/',
     prioridade: '0.9',
     titulo: 'Sabores FrutVibes: drinks de vodka e caipirinha gaseificados',
-    descricao: 'Conheça todos os sabores FrutVibes: Maçã Verde, Limão, Abacaxi e Frutas Vermelhas à base de vodka, e a Caipirinha gaseificada em barril.',
+    descricao: `Conheça todos os sabores FrutVibes: ${NOMES_SABORES}, em barril gaseificado para eventos.`,
     dados: [m.dados],
     corpo: `
 <section class="cabecalho">
@@ -416,7 +428,7 @@ for (const s of SABORES) {
     descricao: s.meta,
     og: s.og,
     ogAlt: `Lata FrutVibes ${s.nome}`,
-    preload: `<link rel="preload" as="image" href="${esc(s.imagem)}" fetchpriority="high">`,
+    preload: s.imagem ? `<link rel="preload" as="image" href="${esc(s.imagem)}" fetchpriority="high">` : '',
     dados: [
       m.dados,
       ld({
@@ -425,7 +437,7 @@ for (const s of SABORES) {
         name: `FrutVibes ${s.nome}`,
         description: s.meta,
         url: abs(caminho),
-        image: [abs(s.imagem), abs(`/assets/img/${s.og}`)],
+        image: [s.imagem ? abs(s.imagem) : null, abs(`/assets/img/${s.og}`)].filter(Boolean),
         brand: { '@type': 'Brand', name: 'FrutVibes' },
         manufacturer: { '@type': 'Organization', name: SITE.empresa || 'FrutVibes', url: abs('/') },
         category: 'Bebidas alcoólicas > Drinks prontos gaseificados',
@@ -545,7 +557,7 @@ for (const s of SABORES) {
       <h2 id="t-passos">Como pedir</h2>
     </div>
     <ol class="passos">
-      <li><h3>Escolha os sabores</h3><p>Maçã Verde, Limão, Abacaxi, Frutas Vermelhas e Caipirinha. Dá para misturar.</p></li>
+      <li><h3>Escolha os sabores</h3><p>${NOMES_SABORES}. Dá para misturar.</p></li>
       <li><h3>Fale com a gente</h3><p>Conte a data, a cidade, o número de convidados e como é a estrutura do bar.</p></li>
       <li><h3>Sirva bem gelado</h3><p>Barril refrigerado, chopeira pronta e drink saindo com gás na medida.</p></li>
     </ol>
@@ -589,7 +601,7 @@ ${blocoChopp()}
   <div class="wrap split">
     <div class="texto">
       <h2>Do barril para o copo</h2>
-      <p>A ideia é simples: pegar os sabores que o brasileiro ama, como maçã verde, limão, abacaxi, frutas vermelhas e a nossa caipirinha, e transformar em drinks gaseificados, prontos para sair gelados da chopeira.</p>
+      <p>A ideia é simples: pegar o que o brasileiro gosta de beber, de ${NOMES_SABORES_MIN}, e transformar em drinks gaseificados, prontos para sair gelados da chopeira.</p>
       <p>Cada sabor é produzido em barril, com base de vodka e gás na medida, para que o último copo da festa seja tão bom quanto o primeiro.</p>
       <h2>Próxima parada: a lata</h2>
       <p>O barril é só o começo. Estamos trabalhando para levar a FrutVibes para a lata e deixar a vibe da fruta ainda mais perto de você.</p>

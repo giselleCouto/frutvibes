@@ -1,0 +1,21 @@
+{
+  "ordem": 5,
+  "nome": "Vodka com Energético",
+  "base": "Vodka + energético",
+  "cor": "#1F5FD0",
+  "texto": "#FFF9E8",
+  "titulo": "FrutVibes Vodka com Energético: o drink da balada em barril",
+  "meta": "FrutVibes Vodka com Energético é o drink gaseificado de vodka com energético, pronto e servido gelado direto do barril em bares, festas e eventos.",
+  "resumo": "O pedido mais clássico da balada, pronto e com gás.",
+  "paragrafos": [
+    "É o drink que todo mundo pede no balcão, só que já pronto: vodka com energético, gelado, com gás e servido direto do barril, sem fila e sem alguém montando copo por copo.",
+    "Em festa cheia, é o sabor que resolve a noite: sai rápido na chopeira e mantém o mesmo ponto do primeiro ao último copo."
+  ],
+  "perfil": [
+    "Sabor marcante de energético",
+    "Vodka na medida, sem pesar",
+    "Gelado, com gás e pronto para servir"
+  ],
+  "combina": "Balada, festa universitária, formatura e noite que vai longe.",
+  "imagem": ""
+}
