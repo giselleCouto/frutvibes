@@ -168,13 +168,13 @@ const html = `<!doctype html>
   .cta p { font-size: 10pt; opacity: .92; line-height: 1.5; }
   .cta__zap { background: var(--creme); color: var(--teal); border-radius: 999px; padding: 4mm 7mm; font-weight: 800; font-size: 12pt; white-space: nowrap; text-align: center; }
   .cta__zap small { display: block; font-size: 8pt; font-weight: 600; opacity: .75; }
-  .ocas { margin-top: 8mm; }
+  .ocas { margin-top: 6mm; }
   .ocas h3 { font-size: 11pt; font-weight: 700; color: var(--teal); margin-bottom: 3.5mm; }
   .ocas__lista { display: flex; flex-wrap: wrap; gap: 2.5mm; }
   .ocas__lista span { background: #fff; border: 1px solid var(--borda); border-radius: 999px; padding: 2.2mm 5mm; font-size: 9.5pt; font-weight: 600; color: var(--tinta2); }
   .chopp { margin-top: 6mm; border: 1px dashed var(--teal-claro); border-radius: 4mm; padding: 4.5mm 6mm; font-size: 10pt; color: var(--tinta2); }
   .chopp strong { color: var(--teal); }
-  .miudo { position: absolute; left: 16mm; right: 16mm; bottom: 17mm; font-size: 7pt; line-height: 1.4; color: #7A8A85; }
+  .miudo { margin-top: 4.5mm; font-size: 7.5pt; line-height: 1.45; color: #6E7E79; }
   .legal { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; border-top: 1px solid var(--borda); padding-top: 3mm;
     display: flex; justify-content: space-between; font-size: 8.5pt; color: var(--tinta2); }
   .legal b { color: var(--tinta); text-transform: uppercase; letter-spacing: .05em; }
@@ -312,7 +312,7 @@ const html = `<!doctype html>
 
   <p class="chopp"><strong>Quer chopp também?</strong> A FrutVibes é da mesma casa da ${SITE.empresa}. Dá para somar barris de chopp ao pedido e fechar o bar inteiro com um fornecedor só.</p>
 
-  <p class="miudo">Equipamentos cedidos sem cobrança de caução. Durante o período de uso, eventuais avarias nos equipamentos são de responsabilidade do contratante, conforme cláusula do contrato.</p>
+  <p class="miudo">Equipamentos cedidos sem caução; avarias durante o uso são de responsabilidade do contratante, conforme contrato.</p>
 
   <div class="legal">
     <span><b>Beba com moderação.</b> Venda proibida para menores de 18 anos.</span>
