@@ -154,6 +154,9 @@ const html = `<!doctype html>
   tbody td:first-child { text-align: left; font-weight: 600; font-size: 10.5pt; color: var(--tinta); }
   tbody td small { display: block; font-weight: 400; font-size: 8.5pt; color: var(--tinta2); margin-top: .8mm; }
   .obs { font-size: 9pt; color: var(--tinta2); line-height: 1.5; }
+  .incluso { background: #E8F3EC; border-left: 4px solid var(--teal-claro); border-radius: 0 3mm 3mm 0;
+    padding: 3.5mm 5mm; font-size: 10.5pt; color: var(--tinta); margin-bottom: 3mm; }
+  .incluso b { color: var(--teal); }
 
   .fatos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 8mm 0; }
   .fato { background: var(--teal); color: var(--creme); border-radius: 4mm; padding: 5mm; }
@@ -193,7 +196,7 @@ const html = `<!doctype html>
     <div class="capa__selos">
       <span>Barris de 30 e 50 L</span>
       <span>5 sabores + caipirinha</span>
-      <span>Pronto para servir</span>
+      <span>Chopeira inclusa</span>
     </div>
   </div>
   <div class="capa__foto"><img src="${emb('linha-frutvibes.webp')}" alt="Barril e latas FrutVibes"></div>
@@ -251,7 +254,7 @@ const html = `<!doctype html>
   <div class="passos">
     <div class="passo"><h3>Você conta o evento</h3><p>Data, local, público estimado e quais sabores quer servir.</p></div>
     <div class="passo"><h3>A gente monta o combo</h3><p>Quantidade de barris por sabor, de acordo com o tamanho e o perfil do público.</p></div>
-    <div class="passo"><h3>Chega gelado e pronto</h3><p>Barril entregue para engatar na chopeira e servir na hora.</p></div>
+    <div class="passo"><h3>Chega gelado e pronto</h3><p>Barril e chopeira entregues no local: é engatar e servir. O aluguel do maquinário já está no preço.</p></div>
   </div>
 </section>
 
@@ -280,7 +283,8 @@ const html = `<!doctype html>
       </tr>
     </tbody>
   </table>
-  <p class="obs">Valores por barril. Frete, chopeira, caução e condições de pagamento são combinados caso a caso com a equipe comercial.</p>
+  <p class="incluso"><b>Aluguel do maquinário incluso.</b> A chopeira vai junto com o barril, sem custo à parte.</p>
+  <p class="obs">Valores por barril. Frete, caução e condições de pagamento são combinados caso a caso com a equipe comercial.</p>
 
   <div class="fatos">
     <div class="fato"><b>30 e 50 L</b><span>Dois tamanhos de barril, misturando sabores como preferir</span></div>
