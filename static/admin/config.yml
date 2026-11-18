@@ -110,7 +110,8 @@ collections:
         fields:
           - { name: email, label: E-mail de contato, widget: string, required: false }
           - { name: whatsapp, label: WhatsApp, widget: string, required: false, hint: 'Só números, com 55 e DDD. Ex.: 5531999999999. Vazio esconde os botões de WhatsApp.' }
-          - { name: instagram, label: Instagram, widget: string, required: false, hint: 'Usuário sem @. Ex.: frutvibes' }
+          - { name: instagram, label: Instagram, widget: string, required: false, hint: 'Usuário sem @. Ex.: frutvibes.drinks' }
+          - { name: choppInstagram, label: Instagram do chopp, widget: string, required: false, hint: 'Perfil da marca de chopp, sem @. Liga o bloco “Quer chopp também?”. Vazio esconde o bloco.' }
           - { name: cidade, label: Cidade, widget: string, required: false }
           - { name: estado, label: Estado (sigla), widget: string, required: false }
           - { name: empresa, label: Empresa responsável, widget: string, required: false }

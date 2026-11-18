@@ -94,6 +94,22 @@ const ICONES = {
   instagram: '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg>',
 };
 
+// Chamada para somar chopp ao pedido (perfil da marca irmã)
+const blocoChopp = () =>
+  SITE.choppInstagram
+    ? `
+<section class="secao chopp" aria-labelledby="t-chopp">
+  <div class="wrap chopp__in">
+    <div class="chopp__texto">
+      <p class="eyebrow">Quer chopp também?</p>
+      <h2 id="t-chopp">Complete o pedido com chopp gelado</h2>
+      <p>A FrutVibes é da mesma casa da ${esc(SITE.empresa || 'Gama Rei do Chopp')}. Dá para somar barris de chopp ao seu pedido e deixar o bar completo.</p>
+    </div>
+    <a class="btn" href="https://www.instagram.com/${SITE.choppInstagram}/" target="_blank" rel="noopener">Ver o chopp no Instagram</a>
+  </div>
+</section>`
+    : '';
+
 // Botões fixos de contato rápido (aparecem quando o canal está preenchido)
 const flutuantes = () => {
   const botoes = [
@@ -337,6 +353,8 @@ add({
   </div>
 </section>
 
+${blocoChopp()}
+
 <section class="secao secao--creme2" aria-labelledby="t-faq">
   <div class="wrap">
     <div class="secao__topo secao__topo--centro">
@@ -527,6 +545,8 @@ for (const s of SABORES) {
   </div>
 </section>
 
+${blocoChopp()}
+
 <section class="secao secao--creme2" aria-labelledby="t-faq-eventos">
   <div class="wrap">
     <div class="secao__topo secao__topo--centro"><h2 id="t-faq-eventos">Dúvidas sobre o barril</h2></div>
@@ -620,6 +640,7 @@ for (const s of SABORES) {
     SITE.whatsapp && `<a class="contato" href="${linkWhats('Olá! Vim pelo site da FrutVibes.')}" target="_blank" rel="noopener"><span class="eyebrow">WhatsApp</span><strong>Pedidos e orçamentos</strong><span>Resposta rápida pelo celular</span></a>`,
     SITE.email && `<a class="contato" href="mailto:${esc(SITE.email)}"><span class="eyebrow">E-mail</span><strong>${esc(SITE.email)}</strong><span>Parcerias, bares e distribuidores</span></a>`,
     SITE.instagram && `<a class="contato" href="https://www.instagram.com/${SITE.instagram}/" target="_blank" rel="noopener"><span class="eyebrow">Instagram</span><strong>@${esc(SITE.instagram)}</strong><span>Novidades e lançamentos</span></a>`,
+    SITE.choppInstagram && `<a class="contato" href="https://www.instagram.com/${SITE.choppInstagram}/" target="_blank" rel="noopener"><span class="eyebrow">Chopp</span><strong>Somar chopp ao pedido</strong><span>@${esc(SITE.choppInstagram)} no Instagram</span></a>`,
   ].filter(Boolean);
   add({
     caminho,
