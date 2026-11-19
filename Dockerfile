@@ -4,6 +4,7 @@ WORKDIR /app
 COPY build.mjs ./
 COPY conteudo ./conteudo
 COPY static ./static
+COPY comercial/proposta-frutvibes-eventos.pdf ./comercial/
 RUN node build.mjs
 
 # Etapa 2: serve a pasta public/ com o Caddy

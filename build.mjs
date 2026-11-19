@@ -757,6 +757,12 @@ rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 cpSync(join(ROOT, 'static'), OUT, { recursive: true });
 
+// Proposta comercial em /proposta.pdf: link para mandar por WhatsApp e e-mail,
+// sem precisar anexar o arquivo. Fica fora dos buscadores (robots.txt).
+const propostaPdf = join(ROOT, 'comercial', 'proposta-frutvibes-eventos.pdf');
+const temProposta = existsSync(propostaPdf);
+if (temProposta) cpSync(propostaPdf, join(OUT, 'proposta.pdf'));
+
 for (const p of paginas) {
   const destino = join(OUT, p.arquivo || join(p.caminho, 'index.html'));
   mkdirSync(dirname(destino), { recursive: true });
@@ -772,7 +778,10 @@ ${indexaveis.map((p) => `  <url><loc>${abs(p.caminho)}</loc><lastmod>${HOJE}</la
 </urlset>
 `,
 );
-writeFileSync(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: ${abs('/sitemap.xml')}\n`);
+writeFileSync(
+  join(OUT, 'robots.txt'),
+  `User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /proposta.pdf\n\nSitemap: ${abs('/sitemap.xml')}\n`,
+);
 writeFileSync(
   join(OUT, 'site.webmanifest'),
   JSON.stringify(
