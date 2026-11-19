@@ -21,3 +21,5 @@ comercial/*.html
 # Dados pessoais de terceiros: NUNCA vão para o repositório (ele é público)
 comercial/contatos-*.csv
 comercial/emails-prontos.md
+
+comercial/followup-prontos.md

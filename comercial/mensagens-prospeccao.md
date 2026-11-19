@@ -10,7 +10,7 @@ e sempre com saída fácil ("é só avisar que não envio mais"). É o que mant�
 
 ## WhatsApp (primeiro contato)
 
-> Olá, [NOME]! Aqui é a Giselle, da FrutVibes (marca da Gama Rei do Chopp), de Belo Horizonte.
+> Olá, [NOME]! Aqui é o Higor, da FrutVibes (marca da Gama Rei do Chopp), de Belo Horizonte.
 >
 > A gente faz drink gaseificado em barril — vodka com fruta e caipirinha — que sai na chopeira, igual chopp.
 > Em evento grande resolve o gargalo do bar: copo pronto, mesmo sabor do primeiro ao último, sem bartender
@@ -20,7 +20,7 @@ e sempre com saída fácil ("é só avisar que não envio mais"). É o que mant�
 
 **Versão curta (quando já houver contato anterior):**
 
-> Olá, [NOME]! Giselle, da FrutVibes. Drink de vodka e caipirinha em barril, servidos na chopeira, com o
+> Olá, [NOME]! Higor, da FrutVibes. Drink de vodka e caipirinha em barril, servidos na chopeira, com o
 > maquinário incluso. Te mando a proposta com os valores?
 
 ---
@@ -36,7 +36,7 @@ e sempre com saída fácil ("é só avisar que não envio mais"). É o que mant�
 
 > Olá, [NOME], tudo bem?
 >
-> Sou a Giselle, da FrutVibes, marca de drinks em barril da Gama Rei do Chopp, aqui de Belo Horizonte.
+> Sou o Higor, da FrutVibes, marca de drinks em barril da Gama Rei do Chopp, aqui de Belo Horizonte.
 > Estou falando com produtoras da região porque o nosso produto resolve um problema específico de evento
 > grande: a fila do bar.
 >
@@ -49,13 +49,13 @@ e sempre com saída fácil ("é só avisar que não envio mais"). É o que mant�
 > - Aluguel da chopeira incluso no valor, sem caução
 > - Entrega de até 1.000 litros por dia em BH e região
 >
-> Segue a proposta com os valores por barril: [ANEXO OU LINK]
+> Segue a proposta com os valores por barril: https://www.frutvibes.com/proposta.pdf
 >
 > Se fizer sentido, me diga a data e o tamanho do próximo evento que eu volto com a quantidade de barris
 > e o orçamento fechado.
 >
 > Abraço,
-> Giselle Couto — FrutVibes
+> Higor Gama — FrutVibes
 > WhatsApp (31) 98227-5760 · comercial@frutvibes.com · www.frutvibes.com
 >
 > *Se preferir não receber mais contatos nossos, basta responder a este e-mail com "remover".*
